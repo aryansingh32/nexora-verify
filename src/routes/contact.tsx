@@ -209,8 +209,8 @@ function Field({
 }: {
   id: string;
   label: string;
-  optional?: boolean;
-  error?: string;
+  optional?: boolean | undefined;
+  error?: string | undefined;
   children: React.ReactNode;
 }) {
   return (
