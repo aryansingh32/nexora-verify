@@ -6,6 +6,7 @@ export const holderSchema = z.object({
   email: z.string().trim().email().max(255),
   phone: z.string().trim().max(40).optional().or(z.literal("")),
   organization: z.string().trim().max(160).optional().or(z.literal("")),
+  photoUrl: z.string().url().max(500).optional().or(z.literal("")),
   holderType: z.string().trim().min(1).max(60),
   status: z.enum(["active", "inactive"]),
 });
@@ -17,8 +18,9 @@ export const certificateSchema = z.object({
   title: z.string().trim().min(3).max(160),
   certType: z.string().trim().min(2).max(60),
   program: z.string().trim().max(160).optional().or(z.literal("")),
+  internshipPeriod: z.string().trim().max(160).optional().or(z.literal("")),
   description: z.string().trim().max(1200).optional().or(z.literal("")),
-  organization: z.string().trim().min(2).max(160),
+  organization: z.string().trim().max(160).optional().or(z.literal("")),
   issuedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   expiresAt: z
     .string()

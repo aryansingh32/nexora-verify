@@ -18,17 +18,13 @@ export function generateToken() {
 }
 
 export async function nextCertificateNumber(supabase: Db) {
-  const year = new Date().getFullYear();
-  const prefix = `NDS-${year}-`;
-  const { data } = await supabase
-    .from("certificates")
-    .select("certificate_number")
-    .like("certificate_number", `${prefix}%`)
-    .order("certificate_number", { ascending: false })
-    .limit(1);
-  const last = data?.[0]?.certificate_number;
-  const seq = last ? Number.parseInt(last.slice(prefix.length), 10) + 1 : 1;
-  return `${prefix}${String(seq).padStart(4, "0")}`;
+  const bytes = new Uint8Array(4); // 4 bytes = 8 hex chars
+  crypto.getRandomValues(bytes);
+  const hash = Array.from(bytes)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("")
+    .toUpperCase();
+  return `NDS-${hash}`;
 }
 
 export async function fetchStats(supabase: Db) {
@@ -116,6 +112,7 @@ export async function saveHolder(supabase: Db, input: HolderInput) {
     email: input.email,
     phone: input.phone || null,
     organization: input.organization || null,
+    photo_url: input.photoUrl || null,
     holder_type: input.holderType,
     status: input.status,
   };
@@ -135,8 +132,9 @@ export async function saveCertificate(supabase: Db, input: CertificateInput) {
     title: input.title,
     cert_type: input.certType,
     program: input.program || null,
+    internship_period: input.internshipPeriod || null,
     description: input.description || null,
-    organization: input.organization,
+    organization: input.organization || "",
     issued_at: input.issuedAt,
     expires_at: input.expiresAt || null,
     status: input.status,

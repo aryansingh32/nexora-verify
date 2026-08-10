@@ -17,9 +17,11 @@ export type VerificationResult =
       certificate: {
         holderName: string;
         holderOrganization: string | null;
+        holderPhotoUrl: string | null;
         title: string;
         type: string;
         program: string | null;
+        internshipPeriod: string | null;
         description: string | null;
         certificateNumber: string;
         issuedAt: string;
@@ -32,6 +34,7 @@ export type VerificationResult =
       status: "revoked";
       certificate: {
         holderName: string;
+        holderPhotoUrl: string | null;
         title: string;
         certificateNumber: string;
         issuedAt: string;
@@ -86,7 +89,7 @@ export const verifyCertificate = createServerFn({ method: "POST" })
     const { data: cert } = await supabaseAdmin
       .from("certificates")
       .select(
-        "id, certificate_number, title, cert_type, program, description, organization, issued_at, expires_at, status, revoked_at, revocation_reason, holders(name, organization)",
+        "id, certificate_number, title, cert_type, program, internship_period, description, organization, issued_at, expires_at, status, revoked_at, revocation_reason, holders(name, organization, photo_url)",
       )
       .eq("verification_token", data.token)
       .maybeSingle();
@@ -98,7 +101,7 @@ export const verifyCertificate = createServerFn({ method: "POST" })
       return { status: "invalid", verifiedAt: now };
     }
 
-    const holder = (cert as unknown as { holders: { name: string; organization: string | null } | null })
+    const holder = (cert as unknown as { holders: { name: string; organization: string | null; photo_url: string | null } | null })
       .holders;
 
     if (cert.status === "revoked") {
@@ -112,6 +115,7 @@ export const verifyCertificate = createServerFn({ method: "POST" })
         status: "revoked",
         certificate: {
           holderName: holder?.name ?? "—",
+          holderPhotoUrl: holder?.photo_url ?? null,
           title: cert.title,
           certificateNumber: cert.certificate_number,
           issuedAt: cert.issued_at,
@@ -136,9 +140,11 @@ export const verifyCertificate = createServerFn({ method: "POST" })
       certificate: {
         holderName: holder?.name ?? "—",
         holderOrganization: holder?.organization ?? null,
+        holderPhotoUrl: holder?.photo_url ?? null,
         title: cert.title,
         type: cert.cert_type,
         program: cert.program,
+        internshipPeriod: (cert as any).internship_period ?? null,
         description: cert.description,
         certificateNumber: cert.certificate_number,
         issuedAt: cert.issued_at,

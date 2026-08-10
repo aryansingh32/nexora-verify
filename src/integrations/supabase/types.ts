@@ -23,6 +23,7 @@ export type Database = {
           expires_at: string | null
           holder_id: string
           id: string
+          internship_period: string | null
           issued_at: string
           organization: string
           program: string | null
@@ -42,6 +43,7 @@ export type Database = {
           expires_at?: string | null
           holder_id: string
           id?: string
+          internship_period?: string | null
           issued_at?: string
           organization?: string
           program?: string | null
@@ -61,6 +63,7 @@ export type Database = {
           expires_at?: string | null
           holder_id?: string
           id?: string
+          internship_period?: string | null
           issued_at?: string
           organization?: string
           program?: string | null
@@ -127,6 +130,7 @@ export type Database = {
           name: string
           organization: string | null
           phone: string | null
+          photo_url: string | null
           status: string
           updated_at: string
         }
@@ -138,6 +142,7 @@ export type Database = {
           name: string
           organization?: string | null
           phone?: string | null
+          photo_url?: string | null
           status?: string
           updated_at?: string
         }
@@ -149,6 +154,7 @@ export type Database = {
           name?: string
           organization?: string | null
           phone?: string | null
+          photo_url?: string | null
           status?: string
           updated_at?: string
         }

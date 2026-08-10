@@ -115,9 +115,9 @@ INSERT INTO public.holders (id, name, email, phone, organization, holder_type, s
   ('33333333-3333-4333-8333-333333333333','Rohan Verma','rohan.verma@example.com','+91 98333 44455','Verma Enterprises','Partner','inactive');
 
 INSERT INTO public.certificates (certificate_number, holder_id, title, cert_type, program, description, issued_at, status, verification_token, revoked_at, revocation_reason) VALUES
-  ('NDS-2026-0001','11111111-1111-4111-8111-111111111111','Digital Transformation Excellence','Achievement','Enterprise Digital Transformation Program','Awarded for the successful completion of an enterprise-wide digital transformation engagement.','2026-07-15','valid', encode(gen_random_bytes(30),'hex'), NULL, NULL),
-  ('NDS-2026-0002','22222222-2222-4222-8222-222222222222','Business Automation Implementation','Completion','Business Process Automation Track','Awarded for the implementation of automated business workflows across operations.','2026-07-22','valid', encode(gen_random_bytes(30),'hex'), NULL, NULL),
-  ('NDS-2026-0003','33333333-3333-4333-8333-333333333333','Digital Solutions Professional','Professional','Digital Solutions Professional Program','Awarded on completion of the digital solutions professional programme.','2026-06-05','revoked', encode(gen_random_bytes(30),'hex'), '2026-07-01T10:00:00Z','Issued in error; superseded by a corrected certificate.');
+  ('NDS-2026-0001','11111111-1111-4111-8111-111111111111','Digital Transformation Excellence','Achievement','Enterprise Digital Transformation Program','Awarded for the successful completion of an enterprise-wide digital transformation engagement.','2026-07-15','valid', substr(md5(random()::text), 1, 30), NULL, NULL),
+  ('NDS-2026-0002','22222222-2222-4222-8222-222222222222','Business Automation Implementation','Completion','Business Process Automation Track','Awarded for the implementation of automated business workflows across operations.','2026-07-22','valid', substr(md5(random()::text), 1, 30), NULL, NULL),
+  ('NDS-2026-0003','33333333-3333-4333-8333-333333333333','Digital Solutions Professional','Professional','Digital Solutions Professional Program','Awarded on completion of the digital solutions professional programme.','2026-06-05','revoked', substr(md5(random()::text), 1, 30), '2026-07-01T10:00:00Z','Issued in error; superseded by a corrected certificate.');
 
 SELECT setval('public.certificate_seq', 3, true);
 

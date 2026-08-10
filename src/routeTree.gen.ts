@@ -11,8 +11,21 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as AdminQrRouteImport } from './routes/admin/qr'
+import { Route as AdminSetupRouteImport } from './routes/admin/setup'
+import { Route as AdminVerificationLogsRouteImport } from './routes/admin/verification-logs'
+import { Route as VerifyTokenRouteImport } from './routes/verify.$token'
+import { Route as AdminCertificatesIndexRouteImport } from './routes/admin/certificates.index'
+import { Route as AdminCertificatesIdRouteImport } from './routes/admin/certificates.$id'
+import { Route as AdminCertificatesNewRouteImport } from './routes/admin/certificates.new'
+import { Route as AdminUsersIndexRouteImport } from './routes/admin/users.index'
+import { Route as AdminUsersIdRouteImport } from './routes/admin/users.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,6 +35,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -34,39 +52,190 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminQrRoute = AdminQrRouteImport.update({
+  id: '/qr',
+  path: '/qr',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSetupRoute = AdminSetupRouteImport.update({
+  id: '/setup',
+  path: '/setup',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminVerificationLogsRoute = AdminVerificationLogsRouteImport.update({
+  id: '/verification-logs',
+  path: '/verification-logs',
+  getParentRoute: () => AdminRoute,
+} as any)
+const VerifyTokenRoute = VerifyTokenRouteImport.update({
+  id: '/verify/$token',
+  path: '/verify/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminCertificatesIndexRoute = AdminCertificatesIndexRouteImport.update({
+  id: '/certificates/',
+  path: '/certificates/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCertificatesIdRoute = AdminCertificatesIdRouteImport.update({
+  id: '/certificates/$id',
+  path: '/certificates/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCertificatesNewRoute = AdminCertificatesNewRouteImport.update({
+  id: '/certificates/new',
+  path: '/certificates/new',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminUsersIndexRoute = AdminUsersIndexRouteImport.update({
+  id: '/users/',
+  path: '/users/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminUsersIdRoute = AdminUsersIdRouteImport.update({
+  id: '/users/$id',
+  path: '/users/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/qr': typeof AdminQrRoute
+  '/admin/setup': typeof AdminSetupRoute
+  '/admin/verification-logs': typeof AdminVerificationLogsRoute
+  '/verify/$token': typeof VerifyTokenRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/certificates/$id': typeof AdminCertificatesIdRoute
+  '/admin/certificates/new': typeof AdminCertificatesNewRoute
+  '/admin/users/$id': typeof AdminUsersIdRoute
+  '/admin/certificates/': typeof AdminCertificatesIndexRoute
+  '/admin/users/': typeof AdminUsersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/qr': typeof AdminQrRoute
+  '/admin/setup': typeof AdminSetupRoute
+  '/admin/verification-logs': typeof AdminVerificationLogsRoute
+  '/verify/$token': typeof VerifyTokenRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/certificates/$id': typeof AdminCertificatesIdRoute
+  '/admin/certificates/new': typeof AdminCertificatesNewRoute
+  '/admin/users/$id': typeof AdminUsersIdRoute
+  '/admin/certificates': typeof AdminCertificatesIndexRoute
+  '/admin/users': typeof AdminUsersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/qr': typeof AdminQrRoute
+  '/admin/setup': typeof AdminSetupRoute
+  '/admin/verification-logs': typeof AdminVerificationLogsRoute
+  '/verify/$token': typeof VerifyTokenRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/certificates/$id': typeof AdminCertificatesIdRoute
+  '/admin/certificates/new': typeof AdminCertificatesNewRoute
+  '/admin/users/$id': typeof AdminUsersIdRoute
+  '/admin/certificates/': typeof AdminCertificatesIndexRoute
+  '/admin/users/': typeof AdminUsersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/services'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/contact'
+    | '/services'
+    | '/admin/dashboard'
+    | '/admin/login'
+    | '/admin/qr'
+    | '/admin/setup'
+    | '/admin/verification-logs'
+    | '/verify/$token'
+    | '/admin/'
+    | '/admin/certificates/$id'
+    | '/admin/certificates/new'
+    | '/admin/users/$id'
+    | '/admin/certificates/'
+    | '/admin/users/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/services'
-  id: '__root__' | '/' | '/about' | '/contact' | '/services'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/services'
+    | '/admin/dashboard'
+    | '/admin/login'
+    | '/admin/qr'
+    | '/admin/setup'
+    | '/admin/verification-logs'
+    | '/verify/$token'
+    | '/admin'
+    | '/admin/certificates/$id'
+    | '/admin/certificates/new'
+    | '/admin/users/$id'
+    | '/admin/certificates'
+    | '/admin/users'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/contact'
+    | '/services'
+    | '/admin/dashboard'
+    | '/admin/login'
+    | '/admin/qr'
+    | '/admin/setup'
+    | '/admin/verification-logs'
+    | '/verify/$token'
+    | '/admin/'
+    | '/admin/certificates/$id'
+    | '/admin/certificates/new'
+    | '/admin/users/$id'
+    | '/admin/certificates/'
+    | '/admin/users/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRouteWithChildren
   ContactRoute: typeof ContactRoute
   ServicesRoute: typeof ServicesRoute
+  VerifyTokenRoute: typeof VerifyTokenRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -85,6 +254,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -99,15 +275,141 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/qr': {
+      id: '/admin/qr'
+      path: '/qr'
+      fullPath: '/admin/qr'
+      preLoaderRoute: typeof AdminQrRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/setup': {
+      id: '/admin/setup'
+      path: '/setup'
+      fullPath: '/admin/setup'
+      preLoaderRoute: typeof AdminSetupRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/verification-logs': {
+      id: '/admin/verification-logs'
+      path: '/verification-logs'
+      fullPath: '/admin/verification-logs'
+      preLoaderRoute: typeof AdminVerificationLogsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/verify/$token': {
+      id: '/verify/$token'
+      path: '/verify/$token'
+      fullPath: '/verify/$token'
+      preLoaderRoute: typeof VerifyTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/certificates/': {
+      id: '/admin/certificates/'
+      path: '/certificates'
+      fullPath: '/admin/certificates/'
+      preLoaderRoute: typeof AdminCertificatesIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/certificates/$id': {
+      id: '/admin/certificates/$id'
+      path: '/certificates/$id'
+      fullPath: '/admin/certificates/$id'
+      preLoaderRoute: typeof AdminCertificatesIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/certificates/new': {
+      id: '/admin/certificates/new'
+      path: '/certificates/new'
+      fullPath: '/admin/certificates/new'
+      preLoaderRoute: typeof AdminCertificatesNewRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/users/': {
+      id: '/admin/users/'
+      path: '/users'
+      fullPath: '/admin/users/'
+      preLoaderRoute: typeof AdminUsersIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/users/$id': {
+      id: '/admin/users/$id'
+      path: '/users/$id'
+      fullPath: '/admin/users/$id'
+      preLoaderRoute: typeof AdminUsersIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
+
+interface AdminRouteChildren {
+  AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminQrRoute: typeof AdminQrRoute
+  AdminSetupRoute: typeof AdminSetupRoute
+  AdminVerificationLogsRoute: typeof AdminVerificationLogsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminCertificatesIdRoute: typeof AdminCertificatesIdRoute
+  AdminCertificatesNewRoute: typeof AdminCertificatesNewRoute
+  AdminUsersIdRoute: typeof AdminUsersIdRoute
+  AdminCertificatesIndexRoute: typeof AdminCertificatesIndexRoute
+  AdminUsersIndexRoute: typeof AdminUsersIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminDashboardRoute: AdminDashboardRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminQrRoute: AdminQrRoute,
+  AdminSetupRoute: AdminSetupRoute,
+  AdminVerificationLogsRoute: AdminVerificationLogsRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminCertificatesIdRoute: AdminCertificatesIdRoute,
+  AdminCertificatesNewRoute: AdminCertificatesNewRoute,
+  AdminUsersIdRoute: AdminUsersIdRoute,
+  AdminCertificatesIndexRoute: AdminCertificatesIndexRoute,
+  AdminUsersIndexRoute: AdminUsersIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRouteWithChildren,
   ContactRoute: ContactRoute,
   ServicesRoute: ServicesRoute,
+  VerifyTokenRoute: VerifyTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

@@ -4,6 +4,11 @@
 // For user-authenticated queries (with RLS), use the auth middleware instead.
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
+import * as ws from 'ws';
+
+if (typeof globalThis !== 'undefined' && !globalThis.WebSocket) {
+  globalThis.WebSocket = (ws.WebSocket || ws.default || ws) as any;
+}
 
 function isNewSupabaseApiKey(value: string): boolean {
   return value.startsWith('sb_publishable_') || value.startsWith('sb_secret_');
@@ -51,6 +56,10 @@ function createSupabaseAdminClient() {
       storage: undefined,
       persistSession: false,
       autoRefreshToken: false,
+      transport: typeof window === 'undefined' ? (ws.WebSocket || ws.default || ws) as any : undefined,
+    },
+    realtime: {
+      transport: typeof window === 'undefined' ? (ws.WebSocket || ws.default || ws) as any : undefined,
     }
   });
 }

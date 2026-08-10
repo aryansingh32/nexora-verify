@@ -166,27 +166,6 @@ function ContactPage() {
 
         <aside className="space-y-5">
           <div className="surface-card p-7">
-            <h2 className="text-base font-semibold text-foreground">Direct contact</h2>
-            <ul className="mt-5 space-y-4 text-sm text-muted-foreground">
-              <li className="flex gap-3">
-                <Mail className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
-                <a className="hover:text-foreground" href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
-              </li>
-              <li className="flex gap-3">
-                <Phone className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
-                <a className="hover:text-foreground" href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}>{COMPANY.phone}</a>
-              </li>
-              <li className="flex gap-3">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
-                {COMPANY.address}
-              </li>
-              <li className="flex gap-3">
-                <Clock className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
-                {COMPANY.hours}
-              </li>
-            </ul>
-          </div>
-          <div className="surface-card p-7">
             <h2 className="text-base font-semibold text-foreground">What happens next</h2>
             <ol className="mt-4 space-y-3 text-sm text-muted-foreground">
               <li>1. We review your enquiry and check fit.</li>
