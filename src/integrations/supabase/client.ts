@@ -9,15 +9,7 @@ if (typeof globalThis !== 'undefined' && !globalThis.WebSocket) {
   globalThis.WebSocket = (ws.WebSocket || ws.default || ws) as any;
 }
 
-// Safe storage getter — returns undefined when localStorage is not available
-// (e.g. SSR, Cloudflare Workers) instead of throwing a TypeError.
-function getSafeStorage(): Storage | undefined {
-  try {
-    return typeof window !== 'undefined' && window.localStorage ? window.localStorage : undefined;
-  } catch {
-    return undefined;
-  }
-}
+// Removed getSafeStorage to let Supabase handle defaults
 
 function isNewSupabaseApiKey(value: string): boolean {
   return value.startsWith('sb_publishable_') || value.startsWith('sb_secret_');
@@ -60,15 +52,11 @@ function createSupabaseClient() {
     throw new Error(message);
   }
 
-  const safeStorage = getSafeStorage();
   return createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
     global: {
       fetch: createSupabaseFetch(SUPABASE_PUBLISHABLE_KEY),
     },
     auth: {
-      storage: safeStorage,
-      persistSession: safeStorage !== undefined,
-      autoRefreshToken: safeStorage !== undefined,
       transport: typeof window === 'undefined' ? (globalThis.WebSocket || ws.WebSocket || ws.default || ws) as any : undefined,
     },
     realtime: {
