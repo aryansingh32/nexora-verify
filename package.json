@@ -3,11 +3,13 @@
   "private": true,
   "sideEffects": false,
   "type": "module",
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build && npm run copy-worker",
+    "build": "vite build",
     "build:dev": "vite build --mode development",
-    "copy-worker": "cp .output/server/index.mjs .output/public/_worker.js && rm -f .output/server/wrangler.json && for d in _chunks _libs _ssr; do [ -d .output/server/$d ] && cp -r .output/server/$d .output/public/; done; for f in .output/server/*.mjs; do [ $(basename $f) != index.mjs ] && cp $f .output/public/$(basename $f) 2>/dev/null || true; done",
     "deploy": "bash deploy-pages.sh",
     "preview": "vite preview",
     "lint": "eslint .",
@@ -86,6 +88,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^15.15.0",
+    "miniflare": "^4.20260730.0",
     "nitro": "3.0.260603-beta",
     "prettier": "^3.7.3",
     "typescript": "^5.8.3",
