@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "vite build && npm run copy-worker",
     "build:dev": "vite build --mode development",
+    "copy-worker": "cp .output/server/index.mjs .output/public/_worker.js && for d in _chunks _libs _ssr; do [ -d .output/server/$d ] && cp -r .output/server/$d .output/public/; done; for f in .output/server/*.mjs; do [ $(basename $f) != index.mjs ] && cp $f .output/public/$(basename $f) 2>/dev/null || true; done",
     "deploy": "bash deploy-pages.sh",
     "preview": "vite preview",
     "lint": "eslint .",
