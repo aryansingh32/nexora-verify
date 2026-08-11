@@ -3,8 +3,20 @@ import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 import * as ws from 'ws';
 
+// In Cloudflare Workers, window may be defined but localStorage is not.
+// Use globalThis.WebSocket (available natively in CF) before falling back to ws.
 if (typeof globalThis !== 'undefined' && !globalThis.WebSocket) {
   globalThis.WebSocket = (ws.WebSocket || ws.default || ws) as any;
+}
+
+// Safe storage getter — returns undefined when localStorage is not available
+// (e.g. SSR, Cloudflare Workers) instead of throwing a TypeError.
+function getSafeStorage(): Storage | undefined {
+  try {
+    return typeof window !== 'undefined' && window.localStorage ? window.localStorage : undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 function isNewSupabaseApiKey(value: string): boolean {
@@ -48,18 +60,19 @@ function createSupabaseClient() {
     throw new Error(message);
   }
 
+  const safeStorage = getSafeStorage();
   return createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
     global: {
       fetch: createSupabaseFetch(SUPABASE_PUBLISHABLE_KEY),
     },
     auth: {
-      storage: typeof window !== 'undefined' ? localStorage : undefined,
-      persistSession: true,
-      autoRefreshToken: true,
-      transport: typeof window === 'undefined' ? (ws.WebSocket || ws.default || ws) as any : undefined,
+      storage: safeStorage,
+      persistSession: safeStorage !== undefined,
+      autoRefreshToken: safeStorage !== undefined,
+      transport: typeof window === 'undefined' ? (globalThis.WebSocket || ws.WebSocket || ws.default || ws) as any : undefined,
     },
     realtime: {
-      transport: typeof window === 'undefined' ? (ws.WebSocket || ws.default || ws) as any : undefined,
+      transport: typeof window === 'undefined' ? (globalThis.WebSocket || ws.WebSocket || ws.default || ws) as any : undefined,
     }
   });
 }
