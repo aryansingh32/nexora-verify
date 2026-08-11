@@ -56,7 +56,10 @@ function VerifyToken() {
   useEffect(() => {
     verify({ data: { token } })
       .then(setResult)
-      .catch(() => setResult({ status: 'invalid', verifiedAt: new Date().toISOString() }))
+      .catch((err) => {
+        console.error('[verifyCertificate] server function error:', err)
+        setResult({ status: 'invalid', verifiedAt: new Date().toISOString() })
+      })
       .finally(() => setLoading(false))
   }, [token, verify])
 
