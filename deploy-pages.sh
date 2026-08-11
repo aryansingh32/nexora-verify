@@ -6,36 +6,27 @@ npm run build
 
 echo "📦 Preparing Cloudflare Pages bundle..."
 
-# Cloudflare Pages requires _worker.js + all server chunks inside the public dir
-# We copy the server worker entry and its chunks into .output/public
+# Cloudflare Pages requires _worker.js inside the deployed public directory.
+# Copy the nitro server entry as _worker.js and all its side chunks.
 
-# Copy the main worker entry as _worker.js
 cp .output/server/index.mjs .output/public/_worker.js
 
 # Copy all server-side chunks (imported by _worker.js at runtime)
-if [ -d ".output/server/_chunks" ]; then
-  cp -r .output/server/_chunks .output/public/
-fi
+for dir in _chunks _libs _ssr; do
+  if [ -d ".output/server/$dir" ]; then
+    cp -r ".output/server/$dir" ".output/public/"
+  fi
+done
 
-if [ -d ".output/server/_libs" ]; then
-  cp -r .output/server/_libs .output/public/
-fi
-
-if [ -d ".output/server/_ssr" ]; then
-  cp -r .output/server/_ssr .output/public/
-fi
-
-# Copy any other .mjs files
-cp .output/server/_runtime.mjs .output/public/_runtime.mjs 2>/dev/null || true
+# Copy any loose .mjs files from server root
 for f in .output/server/*.mjs; do
-  [ -f "$f" ] && cp "$f" ".output/public/$(basename "$f")" 2>/dev/null || true
+  [ "$(basename "$f")" != "index.mjs" ] && cp "$f" ".output/public/$(basename "$f")" 2>/dev/null || true
 done
 
 echo "🚀 Deploying to Cloudflare Pages..."
 npx wrangler pages deploy .output/public \
   --project-name nexoradigitalsolutions \
-  --compatibility-date 2026-08-11 \
-  --compatibility-flag nodejs_compat \
-  --no-bundle
+  --branch main \
+  --commit-dirty=true
 
 echo "✅ Deployed! Visit: https://nexoradigitalsolutions.pages.dev"
