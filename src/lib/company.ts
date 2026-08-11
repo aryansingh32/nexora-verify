@@ -4,8 +4,8 @@ export const COMPANY = {
   tagline: "Digital solutions engineered for the way your business works.",
   description:
     "Nexora Digital Solutions Private Limited helps businesses transform operations, customer experiences, and digital workflows through thoughtfully engineered technology solutions.",
-  email: "hello@nexoradigital.example",
-  phone: "+91 98765 43210",
+  email: "hello@nexoradigitalsolutions.in",
+  phone: "+91 00000 00000",
   address: "Noida, Uttar Pradesh, India",
   hours: "Monday–Saturday, 10:00 AM–6:30 PM",
   signatory: "R. Kulkarni, Director — Delivery",

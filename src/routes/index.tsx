@@ -118,9 +118,7 @@ function HomePage() {
               <p className="mt-1 text-sm text-muted-foreground">{s.label}</p>
             </div>
           ))}
-          <p className="col-span-2 text-center text-xs text-muted-foreground md:col-span-4">
-            Demo statistics shown for illustration.
-          </p>
+
         </div>
       </section>
 
@@ -229,9 +227,7 @@ function HomePage() {
                 Representative engagements
               </h2>
             </div>
-            <p className="text-xs text-muted-foreground">
-              Demo case studies created to illustrate our delivery model.
-            </p>
+
           </div>
 
           <div className="mt-12 grid gap-5 md:grid-cols-2">

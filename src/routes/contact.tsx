@@ -105,7 +105,7 @@ function ContactPage() {
                   <Input id="email" name="email" type="email" required maxLength={255} placeholder="priya@acme.com" />
                 </Field>
                 <Field id="phone" label="Phone" optional error={errors.phone}>
-                  <Input id="phone" name="phone" maxLength={40} placeholder="+91 98765 43210" />
+                  <Input id="phone" name="phone" maxLength={40} placeholder="+91 XXXXX XXXXX" />
                 </Field>
                 <Field id="service" label="Service of interest" optional error={errors.service}>
                   <select

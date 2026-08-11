@@ -77,7 +77,7 @@ function VerifyToken() {
       
       {/* Header */}
       <div className="w-full max-w-lg mb-8 mt-2 flex justify-center items-center z-10 gap-2">
-        <img src="/logo.png" alt="Nexora" className="h-10 w-auto object-contain" />
+        <img src="/logo.png" alt="Nexora" className="h-16 w-auto object-contain" />
       </div>
 
       <div className={`w-full z-10 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col lg:flex-row items-center justify-center gap-8 ${showFull ? 'max-w-6xl' : 'max-w-md'}`}>
